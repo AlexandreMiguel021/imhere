@@ -40,6 +40,7 @@ export default function HomeLayout() {
         >
           <Stack.Screen name="index" options={{ title: 'Eventos' }} />
           <Stack.Screen name="create-edit-event" options={{ title: 'Criar Evento' }} />
+          <Stack.Screen name="event-details/[id]" options={{ title: 'Detalhes Evento' }} />
         </Stack>
       </Try>
     </>
