@@ -1,34 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
+import { EventCard } from '@/components/event-card.component'
+import { FabButton } from '@/components/fab-button.component'
+import { Event } from '@/models/events'
+import { useEvents } from '@/store/useEvents'
+import { colors } from '@/theme/colors'
+import { Link } from 'expo-router'
+import { useCallback } from 'react'
+import { ListRenderItem, Text, TouchableOpacity, View } from 'react-native'
+import Animated, { CurvedTransition } from 'react-native-reanimated'
+export default function Home() {
+  const events = useEvents((state) => state.events)
 
-export default function Page() {
+  const renderitem: ListRenderItem<Event> = useCallback(({ item: event }) => {
+    return <EventCard event={event} />
+  }, [])
+
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View>
-    </View>
-  );
-}
+    <View style={{ backgroundColor: colors.teal500, flex: 1, padding: 16, gap: 16 }}>
+      <Animated.FlatList
+        data={events}
+        contentContainerStyle={{ gap: 16 }}
+        keyExtractor={(item) => item.key}
+        renderItem={renderitem}
+        itemLayoutAnimation={CurvedTransition.delay(250)}
+        ListEmptyComponent={
+          <Text style={{ color: colors.lightOffWhite, textAlign: 'center', fontSize: 16 }}>
+            Não há eventos para serem listados, aperta no botão "+" para adicionar um novo evento.
+          </Text>
+        }
+      />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
-});
+      <FabButton link={{ href: '/create-edit-event' }} />
+    </View>
+  )
+}
