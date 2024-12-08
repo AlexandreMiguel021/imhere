@@ -3,10 +3,10 @@ import { FabButton } from '@/components/fab-button.component'
 import { Event } from '@/models/events'
 import { useEvents } from '@/store/useEvents'
 import { colors } from '@/theme/colors'
-import { Link } from 'expo-router'
 import { useCallback } from 'react'
-import { ListRenderItem, Text, TouchableOpacity, View } from 'react-native'
+import { ListRenderItem, Text, View } from 'react-native'
 import Animated, { CurvedTransition } from 'react-native-reanimated'
+
 export default function Home() {
   const events = useEvents((state) => state.events)
 

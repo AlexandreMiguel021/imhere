@@ -8,7 +8,7 @@ export default function EventDetails() {
   const { id } = useGlobalSearchParams()
 
   if (!id) {
-    throw new Error('ID não encontrado')
+    throw new Error('ID não encontrado.')
   }
 
   if (typeof id !== 'string') {
